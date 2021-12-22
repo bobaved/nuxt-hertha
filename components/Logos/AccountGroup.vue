@@ -3,12 +3,12 @@
 </template>
 <script>
 export default {
-    name: 'AccountGroup',
-    data () {
-        return {
-            logo: '/account-group.svg'
-        }
+  name: 'AccountGroup',
+  data () {
+    return {
+      logo: '/account-group.svg'
     }
+  }
 }
 </script>
 

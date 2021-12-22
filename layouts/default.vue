@@ -22,9 +22,9 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item to="/teams">
           <v-list-item-action>
-            <account-group-outline dark/>
+            <account-group-outline dark />
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>
@@ -52,7 +52,7 @@
         class="m-5"
         width="60"
       >
-      <v-toolbar-title v-text="title" class="ml-5 mr-5"/>
+      <v-toolbar-title class="ml-5 mr-5" v-text="title" />
       <v-spacer />
       <v-btn
         icon
@@ -76,11 +76,10 @@
 </template>
 
 <script>
-import AccountGroup from '../components/Logos/AccountGroup.vue'
 import AccountGroupOutline from '../components/Logos/AccountGroupOutline.vue'
 export default {
-  components: { AccountGroup, AccountGroupOutline },
   name: 'DefaultLayout',
+  components: { AccountGroupOutline },
   data () {
     return {
       dark: true,
@@ -103,7 +102,7 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'Hertha BSC e.V Abteilung Tischtennis',
-      logo: "/Hertha_BSC_Logo.svg"
+      logo: '/Hertha_BSC_Logo.svg'
     }
   }
 }

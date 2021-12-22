@@ -3,15 +3,15 @@
 </template>
 <script>
 export default {
-    name: 'AccountGroup',
-    data () {
-        return {
-            logo: '/account-group-outline.svg'
-        }
-    },
-    props: {
-      dark: Boolean
+  name: 'AccountGroup',
+  props: {
+    dark: Boolean
+  },
+  data () {
+    return {
+      logo: '/account-group-outline.svg'
     }
+  }
 }
 </script>
 

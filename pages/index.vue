@@ -4,6 +4,9 @@
       <v-card class="logo py-4 d-flex justify-center">
         <NuxtLogo />
         <VuetifyLogo />
+        <v-button @click="myMethod()">
+          MEIN <BUTTON />
+        </v-button>
       </v-card>
       <v-card>
         <v-card-title class="headline">
