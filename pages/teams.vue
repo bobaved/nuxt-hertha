@@ -9,6 +9,7 @@
 <script lang="ts">
 import { Context } from '@nuxt/types'
 import Vue, { PropOptions } from 'vue'
+import { NuxtContext } from '~/interfaces/context'
 
 interface TeamsData {
   teams: any
@@ -21,7 +22,7 @@ export default Vue.extend({
         }
     },
 
-async asyncData (ctx: Context): Promise<TeamsData> {
+async asyncData (ctx: NuxtContext): Promise<TeamsData> {
     const response = await ctx.$cmsApi.get(`${ctx.$config.cmsApiBaseUrl}teams`)
     return {teams: response.data}
     }

@@ -1,12 +1,6 @@
-import { Plugin } from '@nuxt/types'
-
-declare module '@nuxt/types' {
-  interface Context {
-    $cmsApi: any // should be NuxtAxiosInstance but does not work
-  }
-}
-
-const cmsApi: Plugin = (context) => {
+import { NuxtContext } from '~/interfaces/context'
+import { NuxtPlugin } from '~/interfaces/plugin'
+const cmsApi: NuxtPlugin = (context: NuxtContext) => {
   context.$cmsApi = context.$axios.create({
     headers: {
       common: {
