@@ -81,9 +81,10 @@ export default {
   },
   publicRuntimeConfig: {
     cmsApiBaseUrl: process.env.CMS_API_BASE_URL || 'https://strapi-hertha.herokuapp.com/api/',
-    // muss in privateRuntimeConfig
-    cmsApiToken: process.env.CMS_API_TOKEN || '71d55efcda4c9a1d198c6da294dc192e06373ef24b4bd11e5edd9b722ab56db17d300df5b649437e2a9ae72224542ae467b91bd4b956e4fdcca94e4652a8b05a48e82ed3bd052811572fdfaa0a435178bcb7e5038dc6cf9e0dae7f8faafe0bb309badfa403b2a65087b6ed79031543c9bb24c58a9fd37cbae89599af7a5d412d'
   },
   privateRuntimeConfig: {
   },
+  env: {
+    cmsApiToken: process.env.CMS_API_TOKEN || '71d55efcda4c9a1d198c6da294dc192e06373ef24b4bd11e5edd9b722ab56db17d300df5b649437e2a9ae72224542ae467b91bd4b956e4fdcca94e4652a8b05a48e82ed3bd052811572fdfaa0a435178bcb7e5038dc6cf9e0dae7f8faafe0bb309badfa403b2a65087b6ed79031543c9bb24c58a9fd37cbae89599af7a5d412d'
+  }
 }

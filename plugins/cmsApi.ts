@@ -11,7 +11,7 @@ const cmsApi: Plugin = (context) => {
     headers: {
       common: {
         Accept: 'text/plain, */*',
-        Authorization: `Bearer ${context.$config.cmsApiToken}`
+        Authorization: `Bearer ${process.env.cmsApiToken}`
       }
     }
   })
