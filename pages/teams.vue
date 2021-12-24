@@ -9,34 +9,33 @@
 </template>
 
 <script lang="ts">
-import { Context } from '@nuxt/types'
-import Vue, { PropOptions } from 'vue'
-import { NuxtContext } from '~/interfaces/context'
+import Vue from 'vue'
 import gql from 'graphql-tag'
+import { NuxtContext } from '~/interfaces/context'
 
 interface TeamsData {
   teams: any
 }
 
 export default Vue.extend({
-  data () {
-      return {
-          teams: null,
-      }
-  },
 
   async asyncData (ctx: NuxtContext): Promise<TeamsData> {
-      const result = await ctx.app.apolloProvider.defaultClient.query({
-        query: gql `query getTeams {
-          teams {
-            data {
-              id
-            }
+    const result = await ctx.app.apolloProvider.defaultClient.query({
+      query: gql`query getTeams {
+        teams {
+          data {
+            id
           }
         }
-        `
-      })
-      return {teams: result}
       }
-  })
+      `
+    })
+    return { teams: result }
+  },
+  data () {
+    return {
+      teams: null
+    }
+  }
+})
 </script>
