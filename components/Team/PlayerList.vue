@@ -38,6 +38,7 @@
                         <v-btn
                           color="blue-grey"
                           class="white--text"
+                          @click="openTab(player.attributes.Link)"
                         >
                           QTTR Profil
                         <v-icon right color="white">
@@ -69,6 +70,10 @@ import { Player } from '~/types/types'
 export default class PlayerList extends Vue {
   @Prop({required: true, type: Array as () => Player[] })
   players!: Player[]
+
+  openTab(link:string) {
+    window.open(link, '_blank')
+  }
 }
 </script>
 <style>
