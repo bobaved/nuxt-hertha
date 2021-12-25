@@ -1,0 +1,22 @@
+{
+    teams {
+        data {
+            attributes {
+                Titel
+                Link
+                Description
+                players {
+                    data {
+                        id
+                        attributes {
+                            Name
+                            LastName
+                            Description
+                            Link
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

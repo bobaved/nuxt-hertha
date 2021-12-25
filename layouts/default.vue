@@ -101,7 +101,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Hertha BSC e.V Abteilung Tischtennis',
+      title: 'Hertha BSC e.V. Abteilung Tischtennis',
       logo: '/Hertha_BSC_Logo.svg'
     }
   }
