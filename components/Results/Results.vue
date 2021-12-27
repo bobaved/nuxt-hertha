@@ -1,6 +1,5 @@
 <template>
     <v-list three-line>
-      {{results}}
       <template v-for="(item, index) in results.data">
 
         <v-divider
