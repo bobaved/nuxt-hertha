@@ -10,12 +10,58 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
+  Date: any;
   /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   DateTime: any;
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
   /** The `Upload` scalar type represents a file upload. */
   Upload: any;
+};
+
+export type Article = {
+  __typename?: 'Article';
+  Inhalt?: Maybe<Scalars['String']>;
+  Titel?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ArticleEntity = {
+  __typename?: 'ArticleEntity';
+  attributes?: Maybe<Article>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type ArticleEntityResponse = {
+  __typename?: 'ArticleEntityResponse';
+  data?: Maybe<ArticleEntity>;
+};
+
+export type ArticleEntityResponseCollection = {
+  __typename?: 'ArticleEntityResponseCollection';
+  data: Array<ArticleEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ArticleFiltersInput = {
+  Inhalt?: InputMaybe<StringFilterInput>;
+  Titel?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<ArticleFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ArticleInput = {
+  Inhalt?: InputMaybe<Scalars['String']>;
+  Titel?: InputMaybe<Scalars['String']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type BooleanFilterInput = {
@@ -39,6 +85,29 @@ export type BooleanFilterInput = {
   null?: InputMaybe<Scalars['Boolean']>;
   or?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
   startsWith?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type DateFilterInput = {
+  and?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  between?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  contains?: InputMaybe<Scalars['Date']>;
+  containsi?: InputMaybe<Scalars['Date']>;
+  endsWith?: InputMaybe<Scalars['Date']>;
+  eq?: InputMaybe<Scalars['Date']>;
+  gt?: InputMaybe<Scalars['Date']>;
+  gte?: InputMaybe<Scalars['Date']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  lt?: InputMaybe<Scalars['Date']>;
+  lte?: InputMaybe<Scalars['Date']>;
+  ne?: InputMaybe<Scalars['Date']>;
+  not?: InputMaybe<DateFilterInput>;
+  notContains?: InputMaybe<Scalars['Date']>;
+  notContainsi?: InputMaybe<Scalars['Date']>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  notNull?: InputMaybe<Scalars['Boolean']>;
+  null?: InputMaybe<Scalars['Boolean']>;
+  or?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  startsWith?: InputMaybe<Scalars['Date']>;
 };
 
 export type DateTimeFilterInput = {
@@ -93,7 +162,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = I18NLocale | Player | Team | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Article | I18NLocale | Player | Result | Team | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -202,14 +271,18 @@ export type JsonFilterInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createArticle?: Maybe<ArticleEntityResponse>;
   createPlayer?: Maybe<PlayerEntityResponse>;
+  createResult?: Maybe<ResultEntityResponse>;
   createTeam?: Maybe<TeamEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   /** Create a new role */
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  deleteArticle?: Maybe<ArticleEntityResponse>;
   deletePlayer?: Maybe<PlayerEntityResponse>;
+  deleteResult?: Maybe<ResultEntityResponse>;
   deleteTeam?: Maybe<TeamEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   /** Delete an existing role */
@@ -227,8 +300,10 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
+  updateArticle?: Maybe<ArticleEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updatePlayer?: Maybe<PlayerEntityResponse>;
+  updateResult?: Maybe<ResultEntityResponse>;
   updateTeam?: Maybe<TeamEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   /** Update an existing role */
@@ -239,8 +314,18 @@ export type Mutation = {
 };
 
 
+export type MutationCreateArticleArgs = {
+  data: ArticleInput;
+};
+
+
 export type MutationCreatePlayerArgs = {
   data: PlayerInput;
+};
+
+
+export type MutationCreateResultArgs = {
+  data: ResultInput;
 };
 
 
@@ -264,7 +349,17 @@ export type MutationCreateUsersPermissionsUserArgs = {
 };
 
 
+export type MutationDeleteArticleArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeletePlayerArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteResultArgs = {
   id: Scalars['ID'];
 };
 
@@ -329,6 +424,12 @@ export type MutationResetPasswordArgs = {
 };
 
 
+export type MutationUpdateArticleArgs = {
+  data: ArticleInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateFileInfoArgs = {
   id: Scalars['ID'];
   info?: InputMaybe<FileInfoInput>;
@@ -337,6 +438,12 @@ export type MutationUpdateFileInfoArgs = {
 
 export type MutationUpdatePlayerArgs = {
   data: PlayerInput;
+  id: Scalars['ID'];
+};
+
+
+export type MutationUpdateResultArgs = {
+  data: ResultInput;
   id: Scalars['ID'];
 };
 
@@ -390,7 +497,9 @@ export type PaginationArg = {
 
 export type Player = {
   __typename?: 'Player';
+  BeigetretenAm?: Maybe<Scalars['Date']>;
   Description?: Maybe<Scalars['String']>;
+  Geburtstag?: Maybe<Scalars['Date']>;
   LastName?: Maybe<Scalars['String']>;
   Link?: Maybe<Scalars['String']>;
   Name?: Maybe<Scalars['String']>;
@@ -418,7 +527,9 @@ export type PlayerEntityResponseCollection = {
 };
 
 export type PlayerFiltersInput = {
+  BeigetretenAm?: InputMaybe<DateFilterInput>;
   Description?: InputMaybe<StringFilterInput>;
+  Geburtstag?: InputMaybe<DateFilterInput>;
   LastName?: InputMaybe<StringFilterInput>;
   Link?: InputMaybe<StringFilterInput>;
   Name?: InputMaybe<StringFilterInput>;
@@ -433,7 +544,9 @@ export type PlayerFiltersInput = {
 };
 
 export type PlayerInput = {
+  BeigetretenAm?: InputMaybe<Scalars['Date']>;
   Description?: InputMaybe<Scalars['String']>;
+  Geburtstag?: InputMaybe<Scalars['Date']>;
   LastName?: InputMaybe<Scalars['String']>;
   Link?: InputMaybe<Scalars['String']>;
   Name?: InputMaybe<Scalars['String']>;
@@ -453,11 +566,15 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: 'Query';
+  article?: Maybe<ArticleEntityResponse>;
+  articles?: Maybe<ArticleEntityResponseCollection>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
   player?: Maybe<PlayerEntityResponse>;
   players?: Maybe<PlayerEntityResponseCollection>;
+  result?: Maybe<ResultEntityResponse>;
+  results?: Maybe<ResultEntityResponseCollection>;
   team?: Maybe<TeamEntityResponse>;
   teams?: Maybe<TeamEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
@@ -466,6 +583,19 @@ export type Query = {
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
+};
+
+
+export type QueryArticleArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryArticlesArgs = {
+  filters?: InputMaybe<ArticleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 
@@ -488,6 +618,19 @@ export type QueryPlayerArgs = {
 
 export type QueryPlayersArgs = {
   filters?: InputMaybe<PlayerFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryResultArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryResultsArgs = {
+  filters?: InputMaybe<ResultFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -547,6 +690,59 @@ export type ResponseCollectionMeta = {
   pagination: Pagination;
 };
 
+export type Result = {
+  __typename?: 'Result';
+  against?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  homeGame?: Maybe<Scalars['Boolean']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  resultAway?: Maybe<Scalars['Int']>;
+  resultHome?: Maybe<Scalars['Int']>;
+  team?: Maybe<TeamEntityResponse>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ResultEntity = {
+  __typename?: 'ResultEntity';
+  attributes?: Maybe<Result>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type ResultEntityResponse = {
+  __typename?: 'ResultEntityResponse';
+  data?: Maybe<ResultEntity>;
+};
+
+export type ResultEntityResponseCollection = {
+  __typename?: 'ResultEntityResponseCollection';
+  data: Array<ResultEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ResultFiltersInput = {
+  against?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<ResultFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  homeGame?: InputMaybe<BooleanFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<ResultFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ResultFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  resultAway?: InputMaybe<IntFilterInput>;
+  resultHome?: InputMaybe<IntFilterInput>;
+  team?: InputMaybe<TeamFiltersInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ResultInput = {
+  against?: InputMaybe<Scalars['String']>;
+  homeGame?: InputMaybe<Scalars['Boolean']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  resultAway?: InputMaybe<Scalars['Int']>;
+  resultHome?: InputMaybe<Scalars['Int']>;
+  team?: InputMaybe<Scalars['ID']>;
+};
+
 export type StringFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -574,11 +770,13 @@ export type Team = {
   __typename?: 'Team';
   Description?: Maybe<Scalars['String']>;
   Foto?: Maybe<UploadFileEntityResponse>;
+  League?: Maybe<Scalars['String']>;
   Link?: Maybe<Scalars['String']>;
   Titel?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   players?: Maybe<PlayerRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']>;
+  result?: Maybe<ResultEntityResponse>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -609,6 +807,7 @@ export type TeamEntityResponseCollection = {
 
 export type TeamFiltersInput = {
   Description?: InputMaybe<StringFilterInput>;
+  League?: InputMaybe<StringFilterInput>;
   Link?: InputMaybe<StringFilterInput>;
   Titel?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<TeamFiltersInput>>>;
@@ -618,16 +817,19 @@ export type TeamFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<TeamFiltersInput>>>;
   players?: InputMaybe<PlayerFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  result?: InputMaybe<ResultFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type TeamInput = {
   Description?: InputMaybe<Scalars['String']>;
   Foto?: InputMaybe<Scalars['ID']>;
+  League?: InputMaybe<Scalars['String']>;
   Link?: InputMaybe<Scalars['String']>;
   Titel?: InputMaybe<Scalars['String']>;
   players?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
+  result?: InputMaybe<Scalars['ID']>;
 };
 
 export type UploadFile = {
@@ -925,4 +1127,9 @@ export type UsersPermissionsUserRelationResponseCollection = {
 export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_1_Query = { __typename?: 'Query', teams?: { __typename?: 'TeamEntityResponseCollection', data: Array<{ __typename?: 'TeamEntity', attributes?: { __typename?: 'Team', Titel?: string | null | undefined, Link?: string | null | undefined, Description?: string | null | undefined, players?: { __typename?: 'PlayerRelationResponseCollection', data: Array<{ __typename?: 'PlayerEntity', id?: string | null | undefined, attributes?: { __typename?: 'Player', Name?: string | null | undefined, LastName?: string | null | undefined, Description?: string | null | undefined, Link?: string | null | undefined } | null | undefined }> } | null | undefined } | null | undefined }> } | null | undefined };
+export type Unnamed_1_Query = { __typename?: 'Query', results?: { __typename?: 'ResultEntityResponseCollection', data: Array<{ __typename?: 'ResultEntity', id?: string | null | undefined, attributes?: { __typename?: 'Result', resultHome?: number | null | undefined, resultAway?: number | null | undefined, against?: string | null | undefined, homeGame?: boolean | null | undefined, team?: { __typename?: 'TeamEntityResponse', data?: { __typename?: 'TeamEntity', id?: string | null | undefined, attributes?: { __typename?: 'Team', Titel?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined } | null | undefined }> } | null | undefined };
+
+export type Unnamed_2_QueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Unnamed_2_Query = { __typename?: 'Query', teams?: { __typename?: 'TeamEntityResponseCollection', data: Array<{ __typename?: 'TeamEntity', attributes?: { __typename?: 'Team', Titel?: string | null | undefined, Link?: string | null | undefined, Description?: string | null | undefined, players?: { __typename?: 'PlayerRelationResponseCollection', data: Array<{ __typename?: 'PlayerEntity', id?: string | null | undefined, attributes?: { __typename?: 'Player', Name?: string | null | undefined, LastName?: string | null | undefined, Description?: string | null | undefined, Link?: string | null | undefined } | null | undefined }> } | null | undefined } | null | undefined }> } | null | undefined };

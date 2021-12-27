@@ -4,8 +4,8 @@
       <v-col
         v-for="player in players"
         :key="player.id"
-        col=4
-        md=4
+        col=3
+        md=3
         sm=12
       >
         <v-hover>
@@ -15,9 +15,8 @@
                 src="https://placeimg.com/640/480/sport/sepia"
               >
               </v-img>
-              <v-card-title>
+              <v-card-title class="text-subtitle-1">
                 {{player.attributes.Name}} {{player.attributes.LastName}}
-                
               </v-card-title>
 
               <v-expand-transition>
@@ -26,7 +25,7 @@
                   class="transition-fast-in-fast-out v-card--reveal"
                   style="height: 100%;"
                 >
-                  <v-card-title>
+                  <v-card-title class="text-body-1">
                     {{player.attributes.Name}} {{player.attributes.LastName}}
                   </v-card-title>
                   <v-card-text>
@@ -47,6 +46,9 @@
                         </v-btn>
                       </v-list-item-content>
                     </v-list-item>
+                    <v-list-item>
+                      Beigetreten am 21.01.1999
+                    </v-list-item>
                   </v-list>
                 </v-card>
               </v-expand-transition>
@@ -65,7 +67,6 @@ import { Player } from '~/types/types'
 
 @Component({
   name: 'PlayerList',
-
 })
 export default class PlayerList extends Vue {
   @Prop({required: true, type: Array as () => Player[] })

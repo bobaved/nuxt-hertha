@@ -1,12 +1,10 @@
 <template>
   <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
+    <v-col sm="1" md="1"></v-col>
+    <v-col cols="12" sm="8" md="8">
       <v-card class="logo py-4 d-flex justify-center">
         <NuxtLogo />
         <VuetifyLogo />
-        <button @click="myMethod()">
-          MEIN <BUTTON />
-        </button>
       </v-card>
       <v-card>
         <v-card-title class="headline">
@@ -76,11 +74,23 @@
         </v-card-actions>
       </v-card>
     </v-col>
+    <v-col cols="12" sm="3" md="3">
+      <v-card>
+        <v-card-title>
+          Ergebnisse:
+        </v-card-title>
+        <results/>
+      </v-card>
+    </v-col>
   </v-row>
 </template>
 
 <script>
+import Results from '~/components/Results/Results.vue'
 export default {
-  name: 'IndexPage'
+  components: {
+    Results
+  },
+  name: 'IndexPage',
 }
 </script>

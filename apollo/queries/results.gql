@@ -1,0 +1,22 @@
+{
+  results{
+    data {
+      id
+      attributes {
+        team {
+          data {
+            id
+            attributes {
+              Titel,
+              League
+            }
+          }
+        }
+        resultHome
+        resultAway
+        against
+        homeGame
+      }
+    }
+  }
+}

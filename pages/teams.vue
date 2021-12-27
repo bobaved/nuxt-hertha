@@ -11,13 +11,13 @@
         </v-toolbar>
         <v-tabs vertical>
           <v-tab
-            v-for="team in teams"
+            v-for="team in teams.data"
             :key="team.attributes.id"
           >
             {{ team.attributes.Titel}}
           </v-tab>
           <v-tab-item
-            v-for="team in teams"
+            v-for="team in teams.data"
             :key="team.attributes.id"
           >
             <v-card flat>
@@ -34,22 +34,17 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { NuxtContext } from '~/interfaces/context'
-import { Team } from '~/types/types'
+import { Component, Vue } from 'nuxt-property-decorator'
 import teamsQuery from '~/apollo/queries/teams.gql'
 import PlayerList from '~/components/Team/PlayerList.vue'
-export default Vue.extend({
+
+@Component({
+  apollo: {
+    teams: teamsQuery
+  },
   components: {
     PlayerList
-  },
-
-  async asyncData (ctx: NuxtContext): Promise<{teams: Team[]}> {
-    const result = await ctx.app.apolloProvider.defaultClient.query({
-      query: teamsQuery
-    })
-    console.log(result.data.teams.data)
-    return { teams: result.data.teams.data }
-  },
+  }
 })
+export default class Teams extends Vue{}
 </script>
