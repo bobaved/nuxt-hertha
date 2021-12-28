@@ -53,13 +53,6 @@
         width="60"
       >
       <v-toolbar-title class="ml-5 mr-5" v-text="title" />
-      <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container fluid>

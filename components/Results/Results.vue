@@ -1,10 +1,9 @@
 <template>
     <v-list three-line>
-      <template v-for="(item, index) in results.data">
+      <template v-for="(item, index) in results">
 
         <v-divider
           :key="item.id + 'divider'"
-          inset
         ></v-divider>
 
         <v-list-item
@@ -22,31 +21,40 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import Vue from 'vue'
 import resultsQuery from '~/apollo/queries/results.gql'
-import "vue-apollo"
 import { ResultEntity } from '~/types/types'
 
 
-@Component({
-  apollo: {
-    results: resultsQuery
+export default Vue.extend({
+  data () {
+    return {
+      results: [] as ResultEntity[]
+    }
+  },
+  fetch: async function() {
+    const response = await this.$apolloProvider.defaultClient.query({
+      query: resultsQuery
+    })
+    this.results = response.data.results.data
+  },
+  methods: {
+    getHomeTeam(result: ResultEntity): string {
+      return (
+        result.attributes!.homeGame ?
+        result.attributes!.team!.data!.attributes!.Titel :
+        result.attributes!.against
+        ) || ''
+    },
+    getAwayTeam(result: ResultEntity): string {
+      return (
+        !result.attributes!.homeGame ?
+        result.attributes!.team!.data!.attributes!.Titel :
+        result.attributes!.against
+        ) || ''
+    }
   }
 })
-export default class Results extends Vue {
-  getHomeTeam(result: ResultEntity): string {
-    return (
-      result.attributes!.homeGame ?
-      result.attributes!.team!.data!.attributes!.Titel :
-      result.attributes!.against
-      ) || ''
-  }
-  getAwayTeam(result: ResultEntity): string {
-    return (
-      !result.attributes!.homeGame ?
-      result.attributes!.team!.data!.attributes!.Titel :
-      result.attributes!.against
-      ) || ''
-  }
-}
+
+
 </script>
