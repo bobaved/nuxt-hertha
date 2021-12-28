@@ -49,6 +49,7 @@ export default Vue.extend({
     }
   },
   fetch: async function() {
+    /* @ts-ignore */
     const response = await this.$apolloProvider.defaultClient.query({
       query: teamsQuery
     })
